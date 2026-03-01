@@ -3,13 +3,26 @@ import type {SidebarItemConfig} from '@docusaurus/plugin-content-docs/src/sideba
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Helper: only include the category if the directory exists and has content
+// Helper: recursively check if a directory contains any .md/.mdx files
+function hasMarkdownFiles(dirPath: string): boolean {
+  if (!fs.existsSync(dirPath)) return false;
+  const entries = fs.readdirSync(dirPath, {withFileTypes: true});
+  for (const entry of entries) {
+    if (entry.isFile() && /\.(md|mdx)$/.test(entry.name)) return true;
+    if (entry.isDirectory()) {
+      if (hasMarkdownFiles(path.join(dirPath, entry.name))) return true;
+    }
+  }
+  return false;
+}
+
+// Helper: only include the category if the directory exists and has markdown content
 function categoryIfExists(
   label: string,
   dirName: string,
 ): SidebarItemConfig[] {
   const dirPath = path.join(__dirname, 'docs', dirName);
-  if (fs.existsSync(dirPath)) {
+  if (hasMarkdownFiles(dirPath)) {
     return [
       {
         type: 'category',
