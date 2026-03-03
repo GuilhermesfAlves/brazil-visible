@@ -26,6 +26,43 @@
 .admonition-tip { @apply border-brazil-blue bg-blue-50 dark:bg-blue-900/10 text-blue-800 dark:text-blue-300; }
 .admonition-note { @apply border-blue-500 bg-blue-50 dark:bg-blue-900/10 text-blue-800 dark:text-blue-300; }
 
+/* Hero animated gradient — pure CSS, runs on compositor thread */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    #d4f0e0 0%,
+    #fef9d9 25%,
+    #dce6f2 50%,
+    #f0f4e8 75%,
+    #d4f0e0 100%
+  );
+  background-size: 400% 400%;
+  animation: hero-shift 20s ease infinite;
+}
+
+:is(.dark) .hero-gradient {
+  background: linear-gradient(
+    135deg,
+    #0d2818 0%,
+    #1a1a08 25%,
+    #0d1520 50%,
+    #0a0a0a 75%,
+    #0d2818 100%
+  );
+  background-size: 400% 400%;
+  animation: hero-shift 20s ease infinite;
+}
+
+@keyframes hero-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient { animation: none; }
+}
+
 /* Theme transition (View Transitions API) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
