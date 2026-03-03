@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `https://brazilvisible.org/docs/apis/${category}/${slug}/`;
 
   return {
-    title,
+    title: `${title} — ${orgao}`,
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -96,6 +96,28 @@ export default async function ApiDocPage({ params }: Props) {
           ]}
         />
 
+        {/* Status badges — prominent */}
+        <div className="flex flex-wrap items-center gap-2.5 mb-4">
+          {doc.frontmatter.status && (
+            <span className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold ${
+              doc.frontmatter.status === 'documentado'
+                ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 ring-1 ring-emerald-200 dark:ring-emerald-800'
+                : doc.frontmatter.status === 'parcial'
+                  ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 ring-1 ring-amber-200 dark:ring-amber-800'
+                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 ring-1 ring-neutral-200 dark:ring-neutral-700'
+            }`}>
+              {doc.frontmatter.status === 'documentado' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+              )}
+              {doc.frontmatter.status === 'parcial' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+              )}
+              {doc.frontmatter.status === 'documentado' ? 'Documentado' : doc.frontmatter.status === 'parcial' ? 'Parcial' : doc.frontmatter.status}
+            </span>
+          )}
+          <StatusBadge urlBase={doc.frontmatter.url_base} />
+        </div>
+
         {/* Metadata badges */}
         <div className="flex flex-wrap gap-2 mb-6 text-xs">
           <span className="rounded-full bg-neutral-100 dark:bg-neutral-800 px-3 py-1 text-neutral-600 dark:text-neutral-300">
@@ -114,18 +136,6 @@ export default async function ApiDocPage({ params }: Props) {
               Auth: {doc.frontmatter.autenticacao}
             </span>
           )}
-          {doc.frontmatter.status && (
-            <span className={`rounded-full px-3 py-1 ${
-              doc.frontmatter.status === 'documentado'
-                ? 'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400'
-                : doc.frontmatter.status === 'parcial'
-                  ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300'
-            }`}>
-              {doc.frontmatter.status}
-            </span>
-          )}
-          <StatusBadge urlBase={doc.frontmatter.url_base} />
         </div>
 
         {/* Tags */}

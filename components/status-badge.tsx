@@ -44,13 +44,20 @@ function normaliseUrl(raw: string): string {
 
 const badgeStyles: Record<string, string> = {
   online:
-    'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400',
+    'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 ring-1 ring-emerald-200 dark:ring-emerald-800',
   offline:
-    'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+    'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 ring-1 ring-red-200 dark:ring-red-800',
   ftp:
-    'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+    'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 ring-1 ring-blue-200 dark:ring-blue-800',
   unknown:
-    'bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400',
+    'bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300 ring-1 ring-neutral-200 dark:ring-neutral-700',
+};
+
+const dotStyles: Record<string, string> = {
+  online: 'bg-emerald-500',
+  offline: 'bg-red-500',
+  ftp: 'bg-blue-500',
+  unknown: 'bg-neutral-400',
 };
 
 const badgeLabels: Record<string, string> = {
@@ -99,8 +106,14 @@ export function StatusBadge({ urlBase }: StatusBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${badgeStyles[status] ?? badgeStyles.unknown}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold ${badgeStyles[status] ?? badgeStyles.unknown}`}
     >
+      <span className="relative flex h-2.5 w-2.5">
+        {status === 'online' && (
+          <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-50 ${dotStyles[status]}`} />
+        )}
+        <span className={`relative inline-flex h-2.5 w-2.5 rounded-full ${dotStyles[status] ?? dotStyles.unknown}`} />
+      </span>
       {badgeLabels[status] ?? badgeLabels.unknown}
     </span>
   );

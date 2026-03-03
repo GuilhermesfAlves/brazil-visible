@@ -10,7 +10,6 @@
     "validate-frontmatter": "node scripts/validate-frontmatter.mjs"
   },
   "dependencies": {
-    "@paper-design/shaders-react": "^0.0.71",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.576.0",
     "next": "^15.3.3",

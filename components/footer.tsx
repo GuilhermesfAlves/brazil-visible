@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 
 const documentacao = [
@@ -86,7 +87,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-neutral-800 pt-8 text-center">
+        <div className="mt-12 border-t border-neutral-800 pt-8 flex flex-col items-center gap-4">
+          <Image
+            src="/logo-light.svg"
+            alt="Brazil Visible"
+            width={120}
+            height={80}
+            className="opacity-60"
+          />
           <p className="text-sm text-neutral-500">
             &copy; {currentYear} Brazil Visible. Distribuído sob licença MIT.
           </p>

@@ -43,7 +43,7 @@
 | Syntax Highlight | Shiki (via rehype-pretty-code) | 3.x |
 | Temas | next-themes (class-based dark mode) | 0.4.x |
 | Ícones | Lucide React | 0.576+ |
-| Hero Background | @paper-design/shaders-react | 0.0.71 |
+| Hero Background | CSS animated gradient | — |
 | Deploy | Docker (node:20-alpine + nginx:alpine) | — |
 | Hosting | EasyPanel | — |
 | CI/CD | GitHub Actions | — |
@@ -128,7 +128,7 @@ brazil-visible/
 │   ├── breadcrumbs.tsx               # Breadcrumbs com JSON-LD
 │   ├── doc-nav.tsx                   # Navegação anterior/próximo
 │   ├── status-badge.tsx              # Badge de status (online/offline/FTP)
-│   ├── hero-background.tsx           # Background animado (MeshGradient shader)
+│   ├── hero-background.tsx           # Background animado (CSS gradient)
 │   ├── scroll-reveal.tsx             # Animação de reveal ao scroll
 │   └── theme-provider.tsx            # Wrapper do next-themes
 │
